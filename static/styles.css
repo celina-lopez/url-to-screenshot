@@ -1,0 +1,52 @@
+body {
+  background-color: #FFE5E2;
+  height: 100%;
+  font-family: "Lato";
+  color: #B34180;
+}
+
+.fancy-font {
+  font-family: "Anton";
+}
+
+.text-main {
+  color: #E36BAE;
+}
+
+.btn-main, .btn-main:visited {
+  background-color: #FFB4B4 !important;
+  border-color: #FFB4B4 !important;
+  color: white;
+}
+.btn-main:hover, .btn-main:active {
+  background-color: #FF9292 !important;
+  border-color: #FF9292 !important;
+  color: white;
+}
+.content {
+  max-width: 600px;
+}
+
+.bg-0 {
+  background: #FFDEDE
+}
+
+.bg-1 {
+  background: #FCF0C8
+}
+
+.bg-2 {
+  background: #E4FBFF
+}
+
+.bg-3 {
+  background: #F2F4CB
+}
+
+.bg-4 {
+  background: #FFE194
+}
+
+.bg-5 {
+  background: #F0D9FF
+}
