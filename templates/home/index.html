@@ -51,6 +51,10 @@
  
   <div class="row justify-content-center d-none" id="copyArea">
     <div class="col-12">
+      <h3 class="text-center">Download</h3>
+      <a download="website.png" id="downloadImage" >Download</a>
+    </div>
+    <div class="col-12">
       <h3 class="text-center">Base64</h3>
     </div>
     <div class="col-6">
@@ -74,7 +78,8 @@
         document.getElementById("imgHere").setAttribute("src", "data:image/png;base64," + text);
         document.getElementById("imageSpinner").setAttribute("class", "spinner-border d-none");
         document.getElementById("copyArea").setAttribute("class", "row justify-content-center");
-        document.getElementById("base64").innerHTML = text.slice(0, 200) + "..." + '<br/><button id="copyText" type="button" class="btn btn-main" onclick="copyFunction()" data-clipboard-text="'  + text +  '">Copy (wait till alert)</button>'
+        document.getElementById("base64").innerHTML = text.slice(0, 200) + "..." + '<br/><button id="copyText" type="button" class="btn btn-main" onclick="copyFunction()" data-clipboard-text="data:image/png;base64,'  + text +  '">Copy (wait till alert)</button>'
+        document.getElementById("downloadImage").setAttribute("href", "data:image/png;base64," + text)
       };
       request.send()
     });
@@ -90,6 +95,7 @@
       alert("copied!")
       
     }
+
   </script>
 </div>
 

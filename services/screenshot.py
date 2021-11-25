@@ -27,7 +27,7 @@ def take_screenshot(url, headless=True, wait=None):
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    options.add_argument("--window-size=900, 300")
+    options.add_argument("--window-size=900, 600")
     browser = splinter.Browser("chrome", headless=headless, options=options)
     browser.visit("https://" +url)
     filename = Path(browser.screenshot(name=name, full=True))
