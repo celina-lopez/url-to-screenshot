@@ -5,28 +5,30 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
-import random
 import mistune
 from dotenv import load_dotenv
-import json
-
+from services import screenshot
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
-@app.get("/favicon.ico")
+@app.get("img/favicon.ico")
 async def favicon(): return FileResponse('./static/favicon.ico')
 
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/")
 async def index(request: Request):
-    with open ('./static/top_cafes.json', 'r') as cafes:
-    	data = json.load(cafes)
-    	return templates.TemplateResponse("index.html", {
-            "request": request,
-            "cafe": '/static/yakiniq.png',
-            "data": data,
-        })
+  return templates.TemplateResponse("home/index.html", {
+        "request": request,
+    })
+
+
+@app.get('/api/{url}')
+async def weather(url):
+    report = await screenshot.get_image_async(url)
+
+    return report
+
 
 if __name__ == "__main__":
     load_dotenv()

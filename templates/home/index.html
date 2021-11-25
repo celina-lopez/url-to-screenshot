@@ -1,0 +1,36 @@
+{% extends "shared/layout.html" %}
+
+{% block body %}
+
+<div class="py-5 mb-3 container-md" x-data="{}">
+  <div class="text-center mb-4">
+    <div class="h1 fancy-font">
+      SAN FRANCISCO <span class="text-main">CAFES</span>
+    </div>
+    <i>made with <a class="text-main" href="https://github.com/czhu12/forever-free-cloud-app-starter">forever free cloud app starter</a> and <a href="https://github.com/marceloprates/prettymaps" class="text-main">pretty maps</a></i>
+  </div>
+
+
+    <label for="urlInput" class="form-label">Email address</label>
+    <input type="text" class="form-control form-control-lg" id="urlInput" aria-describedby="urlHelp">
+    <button class="btn btn-primary" id="urlSubmit">Submit</button>
+    <div id="display" style="max-width: 500px;">
+      <img src="" id="imgHere" width="500" />
+    </div>
+
+  <script>
+
+    document.getElementById("urlSubmit").addEventListener("click", function () {
+      let request = new XMLHttpRequest();
+      console.log(document.getElementById("urlInput").value)
+      request.open('GET', "/api/" + document.getElementById("urlInput").value);
+      request.responseType = 'text';
+      request.onload = function() {
+        document.getElementById("imgHere").setAttribute("src", "data:image/png;base64," + request.response.slice(1, -1));
+      };
+      request.send()
+    });
+  </script>
+</div>
+
+{% endblock %}
