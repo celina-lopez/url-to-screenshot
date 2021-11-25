@@ -29,28 +29,17 @@ def take_screenshot(url, headless=True, wait=None):
     options.add_argument('--disable-gpu')
     options.add_argument("--window-size=900, 300")
     browser = splinter.Browser("chrome", headless=headless, options=options)
-    # browser.driver.set_window_size(900, 300)
     browser.visit("https://" +url)
     filename = Path(browser.screenshot(name=name, full=True))
-    # name = tmp_filename.name.rsplit("-", maxsplit=1)[0]
-    # extension = tmp_filename.name.rsplit(".", maxsplit=1)[-1]
-    # filename = tmp_filename.parent / (name + "." + extension)
-    # shutil.move(tmp_filename, filename)
     browser.quit()
     im = Image.open(filename)
- 
-# Size of the image in pixels (size of original image)
-# (This is not mandatory)
     width, height = im.size
- 
-# Setting the points for cropped image
+
     left = 0
     top = 0
     right = width
     bottom = height / 2
- 
-# Cropped image of above dimension
-# (It will not change original image)
+
     im1 = im.crop((left, top, right, bottom))
     im1.save(str(filename))
     heyo = get_base64_encoded_image(str(filename))

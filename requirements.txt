@@ -50,3 +50,4 @@ Django
 webdriver-manager
 selenium
 httpx
+Pillow
