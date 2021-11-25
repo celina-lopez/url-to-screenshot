@@ -22,9 +22,8 @@ async def index(request: Request):
         "request": request,
     })
 
-
 @app.get('/api/{url}')
-async def weather(url):
+async def api(url):
     report = await screenshot.get_image_async(url)
 
     return report

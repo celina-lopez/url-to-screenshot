@@ -5,31 +5,91 @@
 <div class="py-5 mb-3 container-md" x-data="{}">
   <div class="text-center mb-4">
     <div class="h1 fancy-font">
-      SAN FRANCISCO <span class="text-main">CAFES</span>
+      LINK TO <span class="text-main">IMAGE</span>
     </div>
-    <i>made with <a class="text-main" href="https://github.com/czhu12/forever-free-cloud-app-starter">forever free cloud app starter</a> and <a href="https://github.com/marceloprates/prettymaps" class="text-main">pretty maps</a></i>
+    <i>made with <a class="text-main" href="https://github.com/czhu12/forever-free-cloud-app-starter">forever free cloud app starter</a></i>
   </div>
 
-
-    <label for="urlInput" class="form-label">Email address</label>
-    <input type="text" class="form-control form-control-lg" id="urlInput" aria-describedby="urlHelp">
-    <button class="btn btn-primary" id="urlSubmit">Submit</button>
-    <div id="display" style="max-width: 500px;">
-      <img src="" id="imgHere" width="500" />
+  <div class="row justify-content-center">
+    <div class="col-sm-6 col-8">
+      <input
+        type="text"
+        class="form-control form-control-lg"
+        id="urlInput"
+        aria-describedby="urlHelp"
+        placeholder="www.worthyofapenny.com"
+      > 
     </div>
+    <div class="col-auto">
+      <button class="btn btn-main btn-lg" id="urlSubmit">Submit</button>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3">
+    <div class="col-auto">
+      <div id="display" style="max-width: 500px;">
+        <img src="" id="imgHere" width="500" class="rounded" />
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border d-none" id="imageSpinner" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3">
+    <div class="col-auto">
+      <div id="display" style="max-width: 500px;">
+        <img src="" id="imgHere" width="500" class="rounded" />
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border d-none" id="imageSpinner" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row justify-content-center d-none" id="copyArea">
+    <div class="col-12">
+      <h3 class="text-center">Base64</h3>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body" id="base64">
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
   <script>
-
     document.getElementById("urlSubmit").addEventListener("click", function () {
+      document.getElementById("imageSpinner").setAttribute("class", "spinner-border")
       let request = new XMLHttpRequest();
       console.log(document.getElementById("urlInput").value)
       request.open('GET', "/api/" + document.getElementById("urlInput").value);
       request.responseType = 'text';
       request.onload = function() {
-        document.getElementById("imgHere").setAttribute("src", "data:image/png;base64," + request.response.slice(1, -1));
+        const text = request.response.slice(1, -1);
+        document.getElementById("imgHere").setAttribute("src", "data:image/png;base64," + text);
+        document.getElementById("imageSpinner").setAttribute("class", "spinner-border d-none");
+        document.getElementById("copyArea").setAttribute("class", "row justify-content-center");
+        document.getElementById("base64").innerHTML = text.slice(0, 200) + "..." + '<br/><button id="copyText" type="button" class="btn btn-main" onclick="copyFunction()" data-clipboard-text="'  + text +  '">Copy (wait till alert)</button>'
       };
       request.send()
     });
+    function copyFunction() {
+      const el = document.createElement('textarea');
+      el.value =  document.getElementById("copyText").getAttribute("data-clipboard-text");
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      alert("copied!")
+      
+    }
   </script>
 </div>
 
